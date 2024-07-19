@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://calm-ocean-08b934a03.5.azurestaticapps.net")
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;

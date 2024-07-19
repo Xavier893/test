@@ -10,13 +10,13 @@ const Orders = () => {
 	useEffect(() => {
 		if (client) {
 			axios
-				.get(`http://localhost:8080/api/orders/client/${client.id}`)
+				.get(`https://cpazureback.azurewebsites.net/api/orders/client/${client.id}`)
 				.then((response) => setOrders(response.data));
 		}
 	}, [client]);
 
 	const handleDeleteOrder = (orderId) => {
-		axios.delete(`http://localhost:8080/api/orders/${orderId}`).then(() => {
+		axios.delete(`https://cpazureback.azurewebsites.net/api/orders/${orderId}`).then(() => {
 			setOrders(orders.filter((order) => order.id !== orderId));
 		});
 	};
@@ -46,7 +46,7 @@ const Orders = () => {
 		const item = order.orderItems.find((item) => item.id === itemId);
 
 		axios
-			.put(`http://localhost:8080/api/orders/${orderId}/items/${itemId}`, {
+			.put(`https://cpazureback.azurewebsites.net/api/orders/${orderId}/items/${itemId}`, {
 				product: item.product,
 				quantity: item.quantity,
 			})
@@ -67,7 +67,7 @@ const Orders = () => {
 		);
 
 		axios
-			.put(`http://localhost:8080/api/orders/${orderId}`, {
+			.put(`https://cpazureback.azurewebsites.net/api/orders/${orderId}`, {
 				...order,
 				orderItems: updatedOrderItems,
 			})

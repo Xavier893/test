@@ -13,7 +13,7 @@ const Home = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:8080/api/products")
+			.get("https://cpazureback.azurewebsites.net/api/products")
 			.then((response) => setProducts(response.data));
 	}, []);
 
@@ -21,7 +21,7 @@ const Home = () => {
 		if (user) {
 			console.log("user is here: ", user);
 			axios
-				.post("http://localhost:8080/api/clients", {
+				.post("https://cpazureback.azurewebsites.net/api/clients", {
 					name: user.name,
 					email: user.email,
 				})
@@ -51,7 +51,7 @@ const Home = () => {
 			console.log(client.id);
 			try {
 				const response = await axios.get(
-					`http://localhost:8080/api/orders/client/${client.id}`
+					`https://cpazureback.azurewebsites.net/api/orders/client/${client.id}`
 				);
 				const orders = response.data;
 
@@ -63,7 +63,7 @@ const Home = () => {
 
 					if (existingItem) {
 						await axios.put(
-							`http://localhost:8080/api/orders/${order.id}/items/${existingItem.id}`,
+							`https://cpazureback.azurewebsites.net/api/orders/${order.id}/items/${existingItem.id}`,
 							{
 								product: { id: productId },
 								quantity: existingItem.quantity + 1,
@@ -71,7 +71,7 @@ const Home = () => {
 						);
 					} else {
 						await axios.put(
-							`http://localhost:8080/api/orders/${order.id}/items`,
+							`https://cpazureback.azurewebsites.net/api/orders/${order.id}/items`,
 							{
 								product: { id: productId },
 								quantity: 1,
@@ -79,17 +79,17 @@ const Home = () => {
 						);
 					}
 				} else {
-					await axios.post(`http://localhost:8080/api/orders/${client.id}`, {
+					await axios.post(`https://cpazureback.azurewebsites.net/api/orders/${client.id}`, {
 						orderItems: [{ product: { id: productId }, quantity: 1 }],
 					});
 
 					const newOrderResponse = await axios.get(
-						`http://localhost:8080/api/orders/client/${client.id}`
+						`https://cpazureback.azurewebsites.net/api/orders/client/${client.id}`
 					);
 					const newOrder = newOrderResponse.data[0];
 
 					await axios.put(
-						`http://localhost:8080/api/orders/${newOrder.id}/items`,
+						`https://cpazureback.azurewebsites.net/api/orders/${newOrder.id}/items`,
 						{
 							product: { id: productId },
 							quantity: 1,
