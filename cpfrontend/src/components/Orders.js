@@ -22,13 +22,14 @@ const Orders = () => {
 	};
 
 	const handleUpdateOrderItem = (orderId, itemId, quantity) => {
+		const num = Number(quantity);
 		setOrders(
 			orders.map((order) =>
 				order.id === orderId
 					? {
 							...order,
 							orderItems: order.orderItems.map((item) =>
-								item.id === itemId ? { ...item, quantity } : item
+								item.id === itemId ? { ...item, num } : item
 							),
 					  }
 					: order
@@ -37,7 +38,7 @@ const Orders = () => {
 
 		setChangedItems((prevState) => ({
 			...prevState,
-			[itemId]: quantity,
+			[itemId]: num,
 		}));
 	};
 
@@ -111,7 +112,7 @@ const Orders = () => {
 												handleUpdateOrderItem(
 													order.id,
 													item.id,
-													parseInt(e.target.value)
+													e.target.value
 												)
 											}
 										/>
