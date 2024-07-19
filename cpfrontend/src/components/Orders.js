@@ -21,46 +21,6 @@ const Orders = () => {
 		});
 	};
 
-	const handleUpdateOrderItem = (orderId, itemId, quantity) => {
-		const num = Number(quantity);
-		setOrders(
-			orders.map((order) =>
-				order.id === orderId
-					? {
-							...order,
-							orderItems: order.orderItems.map((item) =>
-								item.id === itemId ? { ...item, num } : item
-							),
-					  }
-					: order
-			)
-		);
-
-		setChangedItems((prevState) => ({
-			...prevState,
-			[itemId]: num,
-		}));
-	};
-
-	const handleSaveOrderItem = (orderId, itemId) => {
-		const order = orders.find((order) => order.id === orderId);
-		const item = order.orderItems.find((item) => item.id === itemId);
-
-		axios
-			.put(`https://cpazureback.azurewebsites.net/api/orders/${orderId}/items/${itemId}`, {
-				product: item.product,
-				quantity: item.quantity,
-			})
-			.then(() => {
-				setChangedItems((prevState) => {
-					const newState = { ...prevState };
-					delete newState[itemId];
-					return newState;
-				});
-				alert("Order item updated successfully");
-			});
-	};
-
 	const handleRemoveOrderItem = (orderId, itemId) => {
 		const order = orders.find((order) => order.id === orderId);
 		const updatedOrderItems = order.orderItems.filter(
@@ -105,27 +65,9 @@ const Orders = () => {
 								<tr key={item.id}>
 									<td>{item.product.name}</td>
 									<td>
-										<Form.Control
-											type="number"
-											value={item.quantity}
-											onChange={(e) =>
-												handleUpdateOrderItem(
-													order.id,
-													item.id,
-													e.target.value
-												)
-											}
-										/>
+										{item.quantity}
 									</td>
 									<td>
-										<Button
-											variant="success"
-											onClick={() => handleSaveOrderItem(order.id, item.id)}
-											disabled={!changedItems[item.id]}
-											style={{ marginRight: "10px" }}
-										>
-											Save
-										</Button>
 										<Button
 											variant="danger"
 											onClick={() => handleRemoveOrderItem(order.id, item.id)}
