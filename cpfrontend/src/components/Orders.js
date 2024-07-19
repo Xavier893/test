@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Table, Form } from "react-bootstrap";
+import { Container, Button, Table } from "react-bootstrap";
 import axios from "axios";
 
 const Orders = () => {
 	const [orders, setOrders] = useState([]);
 	const client = JSON.parse(localStorage.getItem("client"));
-	const [changedItems, setChangedItems] = useState({});
 
 	useEffect(() => {
 		if (client) {
