@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Table, Form } from "react-bootstrap";
+import { Container, Button, Table, Form } from "react-bootstrap";
 import axios from "axios";
 
 const Orders = () => {
 	const [orders, setOrders] = useState([]);
-	const [client, setClient] = useState(
-		JSON.parse(localStorage.getItem("client"))
-	);
+	const client = JSON.parse(localStorage.getItem("client"));
 	const [changedItems, setChangedItems] = useState({});
 
 	useEffect(() => {
@@ -123,7 +121,6 @@ const Orders = () => {
 											variant="success"
 											onClick={() => handleSaveOrderItem(order.id, item.id)}
 											disabled={!changedItems[item.id]}
-											className="me-20"
 											style={{ marginRight: "10px" }}
 										>
 											Save
@@ -131,7 +128,6 @@ const Orders = () => {
 										<Button
 											variant="danger"
 											onClick={() => handleRemoveOrderItem(order.id, item.id)}
-											className="ml-2"
 										>
 											Remove
 										</Button>
